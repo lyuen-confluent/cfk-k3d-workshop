@@ -1,4 +1,4 @@
-Deploy Confluent Platform with Static Host-based Routing on K3d
+Deploy Confluent Platform with Static Host-based Routing (K3d)
 ===============================================================
 
 In this scenario workflow, you'll set up Confluent Platform component clusters
