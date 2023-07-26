@@ -1,0 +1,47 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: ingress-all
+  namespace: confluent
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`kafka.confluent.edu`)
+      services:
+      - name: kafka-bootstrap
+        port: 9092
+    - match: HostSNI(`b0.confluent.edu`)
+      services:
+      - name: kafka-0-internal
+        port: 9092
+    - match: HostSNI(`b1.confluent.edu`)
+      services:
+      - name: kafka-1-internal
+        port: 9092
+    - match: HostSNI(`b2.confluent.edu`)
+      services:
+      - name: kafka-2-internal
+        port: 9092
+    - match: HostSNI(`controlcenter.confluent.edu`)
+      services:
+      - name: controlcenter-0-internal
+        port: 9021
+    - match: HostSNI(`connect.confluent.edu`)
+      services:
+      - name: connect-bootstrap
+        port: 8083
+    - match: HostSNI(`ksqldb.confluent.edu`)
+      services:
+      - name: ksqldb-bootstrap
+        port: 8088
+    - match: HostSNI(`schemaregistry.confluent.edu`)
+      services:
+      - name: schemaregistry-0-internal
+        port: 8081
+    - match: HostSNI(`mds.confluent.edu`)
+      services:
+      - name: mds-bootstrap
+        port: 8090
+  tls:
+    passthrough: true
